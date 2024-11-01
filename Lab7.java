@@ -58,7 +58,9 @@ public class Lab7 {
                 greenArray[y][x] = color.getGreen();
                 blueArray[y][x] = color.getBlue();
                 applySepiaTone(redArray, greenArray, blueArray);
-                adjustBrightness(redArray, greenArray, blueArray, 20);
+                adjustBrightness(redArray, greenArray, blueArray, 69);
+                applyBlur(redArray, greenArray, blueArray);
+
 
 
             }
@@ -179,6 +181,50 @@ public class Lab7 {
             }
         }
     }
+
+    public static void applyBlur(int[][] red, int[][] green, int[][] blue) {
+        int height = red.length;
+        int width = red[0].length;
+
+        int[][] tempRed = new int[height][width];
+        int[][] tempGreen = new int[height][width];
+        int[][] tempBlue = new int[height][width];
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (y == 0 || y == height - 1 || x == 0 || x == width - 1) {
+                    tempRed[y][x] = red[y][x];
+                    tempGreen[y][x] = green[y][x];
+                    tempBlue[y][x] = blue[y][x];
+                } else {
+                    int sumRed = 0;
+                    int sumGreen = 0;
+                    int sumBlue = 0;
+
+                    for (int i = -1; i <= 1; i++) {
+                        for (int j = -1; j <= 1; j++) {
+                            sumRed += red[y + i][x + j];
+                            sumGreen += green[y + i][x + j];
+                            sumBlue += blue[y + i][x + j];
+                        }
+                    }
+
+                    tempRed[y][x] = sumRed / 9;
+                    tempGreen[y][x] = sumGreen / 9;
+                    tempBlue[y][x] = sumBlue / 9;
+                }
+            }
+        }
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                red[y][x] = tempRed[y][x];
+                green[y][x] = tempGreen[y][x];
+                blue[y][x] = tempBlue[y][x];
+            }
+        }
+    }
+
 
 
 
