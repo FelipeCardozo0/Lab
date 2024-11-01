@@ -8,7 +8,7 @@ public class Lab7 {
     public static void main(String[] args) {
         // load image
         try {
-            BufferedImage image = readImage("beach.jpeg"); // change this to a different image file
+            BufferedImage image = readImage("C:\\Users\\felip\\OneDrive\\Desktop\\Create\\IdeaProjects\\lab\\beach.jpeg"); // change this to a different image file
             int[][][] colorArrays = convertToColorArrays(image); // array of arrays of arrays!
             int[][] redArray = colorArrays[0];
             int[][] greenArray = colorArrays[1];
