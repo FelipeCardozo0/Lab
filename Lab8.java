@@ -22,43 +22,31 @@
 
         }
 
-        public static boolean canFlowOffMap(int[][] map, int row, int col){
-            int Now_cell= map[row][col];
+public static boolean canFlowOffMap(int[][] map, int row, int col) {
+    if (row == 0 || row == map.length - 1 || col == 0 || col == map[0].length - 1) {
+        return true;
+    }
 
-            if  (row == 0 ||col== 0||row == map.length - 1||col==map[0].length - 1) return true;
+    int Now_Cell = map[row][col];
+    
+    if (row > 0 && map[row - 1][col] < Now_Cell) {
+        if (canFlowOffMap(map, row - 1, col)) return true;
+    }
+    
+    if (row < map.length - 1 && map[row + 1][col] < Now_Cell) {
+        if (canFlowOffMap(map, row + 1, col)) return true;
+    }
+    
+    if (col > 0 && map[row][col - 1] < Now_Cell) {
+        if (canFlowOffMap(map, row, col - 1)) return true;
+    }
+    
+    if (col < map[0].length - 1 && map[row][col + 1] < Now_Cell) {
+        if (canFlowOffMap(map, row, col + 1)) return true;
+    }
 
-    //North
-            if (row > 0 &&Now_cell>map[row-1][col]){
-                return (canFlowOffMap(map, row-1,  col));
-            }
+    return false;
+}
 
-
-
-
-    // South
-                 if (row < map.length - 1 &&Now_cell>map[row+1][col]){
-                return canFlowOffMap(map, row+1,  col);
-            }
-
-
-
-
-    // East
-                        if (col < map[0].length - 1 &&Now_cell>map[row][col+1]){
-                return canFlowOffMap(map, row,  col+1);
-            }
-
-
-
-
-    // west
-                            if (col > 0 &&Now_cell>map[row][col-1]){
-                return canFlowOffMap(map, row,  col-1);
-            }
-
-
-            return false;
-
-        }
 
     }
