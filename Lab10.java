@@ -3,7 +3,7 @@ public class Lab10 {
         System.out.println(clearEmojis("LOL :-D"));
         System.out.println(clearEmojis("Smile   :-)"));
         System.out.println(clearEmojis("blah :P teehee :-)"));
-        System.out.println(isValidEmail("user_123@gmail.com"));    
+        System.out.println(isValidEmail("user_123@gmail.com"));
         System.out.println(isValidEmail("user123alpha@gmail.com"));
         System.out.println(isValidEmail("user@domain.xyz"));
         System.out.println(isValidEmail("123user@domain.com"));
@@ -16,12 +16,13 @@ public class Lab10 {
         return email.matches(regex);
     }
 
-        public static String clearEmojis(String sms) {
-            String regex = "(?<=\\s)(:-\\)|:-D|:-P|:\\)|:D|:P)";
+    public static String clearEmojis(String sms) {
+        String regex = "(?<=\\s)(:-\\)|:-D|:-P|:\\)|:D|:P)";
 
-            String result = sms.replaceAll(regex, ".");
+        String result = sms.replaceAll(regex, ".");
 
-            return result.replaceAll("^\\s+", "");
+        return result.replaceAll("^\\s+", "");
+    
         }
 
 
