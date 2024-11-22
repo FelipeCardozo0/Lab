@@ -1,5 +1,6 @@
 public class Lab10 {
     public static void main(String[] args) {
+        System.out.println(clearEmojis("Smile :-)"));
         System.out.println(clearEmojis("LOL :-D"));
         System.out.println(clearEmojis("Smile   :-)"));
         System.out.println(clearEmojis("blah :P teehee :-)"));
@@ -9,6 +10,7 @@ public class Lab10 {
         System.out.println(isValidEmail("user@domain.xyz"));
         System.out.println(isValidEmail("123user@domain.com"));
         System.out.println(isValidEmail("user@domaintoolong.com"));
+
     }
     public static boolean isValidEmail(String email) {
         String regex = "^[a-zA-Z][\\w]{0,9}@[a-zA-Z][a-zA-Z0-9]{0,11}\\.[a-z]{1,3}$";
@@ -17,7 +19,8 @@ public class Lab10 {
     }
 
     public static String clearEmojis(String sms) {
-        String regex = "\\s?[:;][-o*]?[)DPp]";
+        String regex = "\\s*[:][-]?[)DP]";
+        
 
         return sms.replaceAll(regex, ".");
     }
