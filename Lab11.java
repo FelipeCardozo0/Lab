@@ -1,9 +1,23 @@
 public class Lab11 {
     public static void main(String[] args) {
-        countLetters("Botafogo");
-        countLetters("Libertadoress!!!");
+        System.out.println(countLetters("Botafogo"));
+        System.out.println(countLetters("Libertadoress!!!"));
 
-        int[] testCases = {5, 10, 16, 20, -5};
+        System.out.println(factorial(5));
+        System.out.println(factorial(10));
+        System.out.println(factorial(16));
+        System.out.println(factorial(-5));
+
+        try {
+            System.out.println(factorial(5));
+            System.out.println(factorial(10));
+            System.out.println(factorial(16));
+            System.out.println(factorial(-5));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Exception:" + e.getMessage());
+        }
+
+        int[] testCases = {5,10,16, 20, -5 };
         for (int n : testCases) {
             try {
                 System.out.println("Factorial of " + n + ": " + factorial(n));
