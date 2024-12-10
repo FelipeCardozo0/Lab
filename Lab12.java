@@ -1,6 +1,5 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Lab12 {
 
@@ -36,7 +35,41 @@ public class Lab12 {
     }
 
     public static void wordReplacement(String inputFile, String replacementsFile, String outputFile) {
+        Map<String, String> replacements = new HashMap<>();
 
+        try (BufferedReader br = new BufferedReader(new FileReader(replacementsFile))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] pair = line.split(" ", 2);
+                if (pair.length == 2) {
+                    replacements.put(pair[0], pair[1]);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading replacements file: " + e.getMessage());
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile))) {
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                StringBuilder modifiedLine = new StringBuilder();
+                String[] words = line.split("\\b"); 
+                for (String word : words) {
+                    if (replacements.containsKey(word)) {
+                        modifiedLine.append(replacements.get(word));
+                    } else {
+                        modifiedLine.append(word);
+                    }
+                }
+                bw.write(modifiedLine.toString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error processing files: " + e.getMessage());
+        }
     }
 
     public static void wordLengthAnalysis(String filename) {
