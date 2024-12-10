@@ -4,8 +4,7 @@ import java.util.*;
 public class Lab12 {
 
     public static void main(String[] args) {
-        String inputFile = "american-british.txt";String replacementsFile = "museum2.txt";String outputFile = "out.txt";
-        wordReplacement(inputFile, replacementsFile, outputFile);
+        wordReplacement("american-british.txt", "museum2.txt","out.txt");
     }
 
     public static int wordCount(String filename) {
@@ -16,10 +15,12 @@ public class Lab12 {
                 scanner.next();
                 wordCount++;
             }
-        } catch (FileNotFoundException e) {
+        } 
+        catch (FileNotFoundException e){
             System.out.println("Error," + filename+ " not found");
             return -1;
-        } catch (Exception e) {
+        } 
+        catch(Exception e){
             System.out.println("Error");
             e.printStackTrace();
             return -1;
@@ -27,13 +28,13 @@ public class Lab12 {
     }
 
     public static void wordReplacement(String inputFile, String replacementsFile, String outputFile) {
-        BufferedReader inputReader = null,  replacementsReader = null;
+        BufferedReader inputReader = null,replacementsReader =null;
         BufferedWriter outputWriter= null;
 
-        try {
+        try{
             inputReader= new BufferedReader(new FileReader(inputFile));
-            replacementsReader = new BufferedReader(new FileReader(replacementsFile));
-            outputWriter = new BufferedWriter(new FileWriter(outputFile));
+            replacementsReader=new BufferedReader(new FileReader(replacementsFile));
+            outputWriter =new BufferedWriter(new FileWriter(outputFile));
 
             String replacementsData = "";
             String replacementLine;
@@ -47,19 +48,19 @@ public class Lab12 {
 
                 int start = 0;
                 while (start < replacementsData.length()) {
-                    int newlineIndex = replacementsData.indexOf("\n", start);
-                    if (newlineIndex == -1) break;
+                    int newlineIndex=replacementsData.indexOf("\n", start);
+                    if (newlineIndex==-1) break;
 
-                    String replacement = replacementsData.substring(start, newlineIndex);
-                    int spaceIndex = replacement.indexOf(" ");
-                    if (spaceIndex == -1) break;
+                    String replacement=replacementsData.substring(start, newlineIndex);
+                    int spaceIndex=replacement.indexOf(" ");
+                    if (spaceIndex ==-1) break;
 
-                    String original = replacement.substring(0, spaceIndex);
+                    String original =replacement.substring(0, spaceIndex);
                     String replacementWord = replacement.substring(spaceIndex + 1);
 
-                    modifiedLine = modifiedLine.replace(original, replacementWord);
+                    modifiedLine =modifiedLine.replace(original, replacementWord);
 
-                    start = newlineIndex + 1;
+                    start = newlineIndex+1;
                 }
 
                 outputWriter.write(modifiedLine);
@@ -69,9 +70,9 @@ public class Lab12 {
             System.err.println("Error: " + e.getMessage());
         } finally {
             try {
-                if (inputReader != null) inputReader.close();
-                if (replacementsReader != null) replacementsReader.close();
-                if (outputWriter != null) outputWriter.close();
+                if (inputReader !=null)inputReader.close();
+                    if (replacementsReader!= null) replacementsReader.close();
+                        if (outputWriter !=null) outputWriter.close();
             } catch (IOException e) {
                 System.err.println("Error closing resources: " + e.getMessage());
             }
