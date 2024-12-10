@@ -4,14 +4,7 @@ import java.util.*;
 public class Lab12 {
 
     public static void main(String[] args) {
-        String inputFile = "input.txt";
-        String replacementsFile = "replacements.txt";
-        String outputFile = "output.txt";
 
-        wordReplacement(inputFile, replacementsFile, outputFile);
-        System.out.println("Word replacement complete. Output saved to " + outputFile);
-
-        wordLengthAnalysis(inputFile);
     }
 
     public static int wordCount(String filename) {
@@ -35,18 +28,23 @@ public class Lab12 {
     }
 
     public static void wordReplacement(String inputFile, String replacementsFile, String outputFile) {
-        Map<String, String> replacements = new HashMap<>();
+        // Step 1: Read the replacement pairs into two arrays
+        String[] originals = new String[7]; // Assume a maximum of 100 pairs
+        String[] replacements = new String[7];
+        int pairCount = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(replacementsFile))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] pair = line.split(" ", 2);
                 if (pair.length == 2) {
-                    replacements.put(pair[0], pair[1]);
+                    originals[pairCount] = pair[0];
+                    replacements[pairCount] = pair[1];
+                    pairCount++;
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error reading replacements file: " + e.getMessage());
+            System.err.println(e.getMessage());
             return;
         }
 
@@ -56,11 +54,17 @@ public class Lab12 {
             String line;
             while ((line = br.readLine()) != null) {
                 StringBuilder modifiedLine = new StringBuilder();
-                String[] words = line.split("\\b"); 
+                String[] words = line.split("\\b"); // Split by word boundaries
                 for (String word : words) {
-                    if (replacements.containsKey(word)) {
-                        modifiedLine.append(replacements.get(word));
-                    } else {
+                    boolean replaced = false;
+                    for (int i = 0; i < pairCount; i++) {
+                        if (word.equals(originals[i])) {
+                            modifiedLine.append(replacements[i]);
+                            replaced = true;
+                            break;
+                        }
+                    }
+                    if (!replaced) {
                         modifiedLine.append(word);
                     }
                 }
@@ -68,7 +72,7 @@ public class Lab12 {
                 bw.newLine();
             }
         } catch (IOException e) {
-            System.err.println("Error processing files: " + e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
@@ -112,4 +116,6 @@ public class Lab12 {
         }
     }
 }
+
+
   
